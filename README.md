@@ -1,2 +1,3 @@
 # sysfoundry
-sysfoundry is a modular set of clojure libraries for building API enabled services
+Sysfoundry is a set of services and jvm based platform for building Enterprise software rapidly using the Domain Driven Design concepts. 
+It is built on top of the excellent Apache Isis platform and the Spring platforms.
