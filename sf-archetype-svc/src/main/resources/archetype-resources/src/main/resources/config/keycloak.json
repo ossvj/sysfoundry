@@ -1,0 +1,10 @@
+{
+  "realm": "${sf.security.realm}",
+  "auth-server-url": "${sf.authserver.url}",
+  "ssl-required": "external",
+  "resource": "${sf.resource.name}",
+  "public-client": true,
+  "verify-token-audience": true,
+  "use-resource-role-mappings": true,
+  "confidential-port": 0
+}

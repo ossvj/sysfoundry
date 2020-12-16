@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <artifactId>sysfoundry</artifactId>
+    <groupId>com.github.ossvj.sf</groupId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <groupId>${groupId}</groupId>
+  <artifactId>${artifactId}</artifactId>
+  <version>${version}</version>
+
+  <properties>
+    <maven.compiler.arg>-parameters</maven.compiler.arg>
+    <spring-boot.version>2.4.0</spring-boot.version>
+    <approvaltests.version>9.3.0</approvaltests.version>
+    <resteasy.version>4.4.1.Final</resteasy.version>
+    <isis-core.version>2.0.0-SNAPSHOT</isis-core.version>
+    <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+    <keycloak-adapter.version>11.0.3</keycloak-adapter.version>
+    <lombok.version>1.18.16</lombok.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter</artifactId>
+        <version>${spring-boot.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.isis.core</groupId>
+        <artifactId>isis-core</artifactId>
+        <version>${isis-core.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.isis.extensions</groupId>
+        <artifactId>isis-extensions</artifactId>
+        <version>${isis-core.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.isis.mappings</groupId>
+        <artifactId>isis-mappings</artifactId>
+        <version>${isis-core.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.isis.subdomains</groupId>
+        <artifactId>isis-subdomains</artifactId>
+        <version>${isis-core.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.keycloak</groupId>
+        <artifactId>keycloak-servlet-filter-adapter</artifactId>
+        <version>${keycloak-adapter.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>${lombok.version}</version>
+        <scope>provided</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <resources>
+      <resource>
+        <filtering>false</filtering>
+        <directory>src/main/resources</directory>
+      </resource>
+      <resource>
+        <filtering>false</filtering>
+        <directory>src/main/java</directory>
+        <includes>
+          <include>**</include>
+        </includes>
+        <excludes>
+          <exclude>**/*.java</exclude>
+        </excludes>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+      </testResource>
+      <testResource>
+        <filtering>false</filtering>
+        <directory>src/test/java</directory>
+        <excludes>
+          <exclude>**/*.java</exclude>
+        </excludes>
+      </testResource>
+    </testResources>
+
+    <plugins>
+      <!-- running: mvn spring-boot:run -->
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+            </exclude>
+            <exclude>
+              <groupId>org.apache.isis.security</groupId>
+              <artifactId>isis-security-bypass</artifactId>
+            </exclude>
+          </excludes>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+    </plugins>
+    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+      <plugins>
+        <plugin>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.1.0</version>
+        </plugin>
+        <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.22.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>2.5.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>2.8.2</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+
+  <!-- Dependencies -->
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-autoconfigure</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.isis.core</groupId>
+      <artifactId>isis-core-config</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.isis.core</groupId>
+      <artifactId>isis-core-runtimeservices</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.isis.persistence</groupId>
+      <artifactId>isis-persistence-jdo-datanucleus5</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.isis.viewer</groupId>
+      <artifactId>isis-viewer-restfulobjects-jaxrsresteasy4</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.isis.viewer</groupId>
+      <artifactId>isis-viewer-wicket-viewer</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.isis.testing</groupId>
+      <artifactId>isis-testing-fixtures-applib</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.isis.testing</groupId>
+      <artifactId>isis-testing-h2console-ui</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.isis.extensions</groupId>
+      <artifactId>isis-extensions-flyway-impl</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.github.ossvj.sf</groupId>
+      <artifactId>sf-lib-security-keycloak</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+
+</project>

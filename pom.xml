@@ -1,25 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>com.github.ossvj.sf</groupId>
     <artifactId>sysfoundry</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
-
     <properties>
         <maven.compiler.arg>-parameters</maven.compiler.arg>
-        <spring-boot.version>2.3.4.RELEASE</spring-boot.version>
+        <spring-boot.version>2.4.0</spring-boot.version>
         <approvaltests.version>9.3.0</approvaltests.version>
         <resteasy.version>4.4.1.Final</resteasy.version>
+        <isis-core.version>2.0.0-SNAPSHOT</isis-core.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <keycloak-adapter.version>11.0.3</keycloak-adapter.version>
+        <lombok.version>1.18.16</lombok.version>
     </properties>
-
     <modules>
         <module>sf-lib-security-keycloak</module>
         <module>sf-svc-portal</module>
+        <module>sf-archetype-svc</module>
     </modules>
 
     <dependencyManagement>
@@ -27,54 +27,50 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter</artifactId>
-                <version>2.4.0</version>
+                <version>${spring-boot.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.apache.isis.core</groupId>
                 <artifactId>isis-core</artifactId>
-                <version>2.0.0-SNAPSHOT</version>
+                <version>${isis-core.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
-
             <dependency>
                 <groupId>org.apache.isis.extensions</groupId>
                 <artifactId>isis-extensions</artifactId>
-                <version>2.0.0-SNAPSHOT</version>
+                <version>${isis-core.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
-
             <dependency>
                 <groupId>org.apache.isis.mappings</groupId>
                 <artifactId>isis-mappings</artifactId>
-                <version>2.0.0-SNAPSHOT</version>
+                <version>${isis-core.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
-
             <dependency>
                 <groupId>org.apache.isis.subdomains</groupId>
                 <artifactId>isis-subdomains</artifactId>
-                <version>2.0.0-SNAPSHOT</version>
+                <version>${isis-core.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
-
             <dependency>
                 <groupId>org.keycloak</groupId>
                 <artifactId>keycloak-servlet-filter-adapter</artifactId>
-                <version>11.0.3</version>
+                <version>${keycloak-adapter.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.18.16</version>
+                <version>${lombok.version}</version>
                 <scope>provided</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
+
 
     <dependencies>
         <dependency>
@@ -82,26 +78,26 @@
             <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
+
+
     <profiles>
         <profile>
-            <id>isis-app-starter-datanucleusenhance</id>
+            <id>sf-app-starter-datanucleusenhance</id>
             <activation>
                 <file>
                     <exists>${basedir}/logging-dn-enhance.properties</exists>
                 </file>
             </activation>
             <properties>
-
                 <!-- keep in sync with versions used in Apache Isis -->
                 <datanucleus-api-jdo.version>5.2.4</datanucleus-api-jdo.version>
                 <datanucleus-core.version>5.2.4</datanucleus-core.version>
                 <datanucleus-jodatime.version>5.2.0-release</datanucleus-jodatime.version>
                 <datanucleus-maven-plugin.version>5.2.1</datanucleus-maven-plugin.version>
-
-                <datanucleus-maven-plugin.log4jConfiguration>${basedir}/logging-dn-enhance.properties</datanucleus-maven-plugin.log4jConfiguration>
+                <datanucleus-maven-plugin.log4jConfiguration>${basedir}/logging-dn-enhance.properties
+                </datanucleus-maven-plugin.log4jConfiguration>
                 <datanucleus-maven-plugin.verbose>true</datanucleus-maven-plugin.verbose>
                 <datanucleus-maven-plugin.fork>false</datanucleus-maven-plugin.fork>
-
             </properties>
             <build>
                 <plugins>
@@ -154,13 +150,16 @@
                 </plugins>
             </build>
         </profile>
-
     </profiles>
-
-
     <build>
         <pluginManagement>
             <plugins>
+                <!-- Archetype plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-archetype-plugin</artifactId>
+                    <version>3.2.0</version>
+                </plugin>
                 <!-- Compile -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -176,24 +175,57 @@
                             <arg>${maven.compiler.arg}</arg>
                         </compilerArgs>
                     </configuration>
+
+
                     <!-- goal:compile binds to phase:compile -->
+
+
                     <!-- goal:testCompile binds to phase:test-compile -->
+
+
                 </plugin>
+
 
                 <!-- SITE REPORT -->
+
+
                 <plugin>
+
+
                     <groupId>org.apache.maven.plugins</groupId>
+
+
                     <artifactId>maven-site-plugin</artifactId>
+
+
                     <version>3.9.1</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-project-info-reports-plugin</artifactId>
-                    <version>3.1.1</version>
+
+
                 </plugin>
 
+
+                <plugin>
+
+
+                    <groupId>org.apache.maven.plugins</groupId>
+
+
+                    <artifactId>maven-project-info-reports-plugin</artifactId>
+
+
+                    <version>3.1.1</version>
+
+
+                </plugin>
+
+
             </plugins>
+
+
         </pluginManagement>
+
+
     </build>
+
 
 </project>
