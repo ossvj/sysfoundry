@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>sysfoundry</artifactId>
+        <groupId>com.github.ossvj.sf</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>sf-svc-portal</artifactId>
+
+    <description>Sysfoundry Portal Service</description>
+
+    <build>
+        <resources>
+            <resource>
+                <filtering>false</filtering>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <filtering>false</filtering>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**</include>
+                </includes>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+            </testResource>
+            <testResource>
+                <filtering>false</filtering>
+                <directory>src/test/java</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </testResource>
+        </testResources>
+        <plugins>
+
+            <!-- generate cucumber json result -->
+            <!--plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-antrun-plugin</artifactId>
+              <executions>
+                <execution>
+                  <id>cucumber-cli</id>
+                  <phase>integration-test</phase>
+                  <goals>
+                    <goal>run</goal>
+                  </goals>
+                  <configuration>
+                    <target>
+                      <echo message="Running Cucumber CLI" />
+                      <java classname="io.cucumber.core.cli.Main"
+                            fork="true"
+                            failonerror="true"
+                            newenvironment="true"
+                            maxmemory="1024m"
+                            classpathref="maven.test.classpath">
+                        <arg value="-plugin" />
+                        <arg value="json:${project.build.directory}/cucumber-no-clobber.json" />
+                      </java>
+                    </target>
+                  </configuration>
+                </execution>
+              </executions>
+            </plugin-->
+
+            <!-- generate html report from cucumber json result -->
+            <!--plugin>
+                <groupId>net.masterthought</groupId>
+                <artifactId>maven-cucumber-reporting</artifactId>
+                <version>${maven-cucumber-reporting.version}</version>
+                <executions>
+                    <execution>
+                        <id>default</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <projectName>SimpleApp</projectName>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                            <inputDirectory>${project.build.directory}</inputDirectory>
+                            <jsonFiles>
+                                <param>**/cucumber-no-clobber.json</param>
+                            </jsonFiles>
+                            <skip>${skipBDD}</skip>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin-->
+
+            <!-- running: mvn spring-boot:run -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.apache.isis.security</groupId>
+                            <artifactId>isis-security-bypass</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.isis.core</groupId>
+            <artifactId>isis-core-runtimeservices</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.isis.persistence</groupId>
+            <artifactId>isis-persistence-jdo-datanucleus5</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.isis.viewer</groupId>
+            <artifactId>isis-viewer-restfulobjects-jaxrsresteasy4</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.isis.viewer</groupId>
+            <artifactId>isis-viewer-wicket-viewer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.isis.testing</groupId>
+            <artifactId>isis-testing-fixtures-applib</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.isis.testing</groupId>
+            <artifactId>isis-testing-h2console-ui</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.isis.extensions</groupId>
+            <artifactId>isis-extensions-flyway-impl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ossvj.sf</groupId>
+            <artifactId>sf-lib-security-keycloak</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+</project>
