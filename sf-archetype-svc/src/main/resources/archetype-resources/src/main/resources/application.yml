@@ -49,7 +49,7 @@ isis:
         menubars-layout-xml: menubars.layout.xml
 
       credit:
-        - url:  ${sf.website.url}
+        - url:  ${sf-website-url}
           image: images/apache-isis/logo-48x48.png
           name: ${artifactId}
 

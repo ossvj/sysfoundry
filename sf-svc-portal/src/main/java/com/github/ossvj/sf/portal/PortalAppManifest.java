@@ -1,5 +1,7 @@
 package com.github.ossvj.sf.portal;
 
+import com.github.ossvj.sf.portal.health.HealthCheckServiceImpl;
+import com.github.ossvj.sf.portal.vmod.PortalModule;
 import com.github.ossvj.sf.security.keycloak.IsisModuleSecurityKeycloak;
 import org.apache.isis.core.config.presets.IsisPresets;
 import org.apache.isis.core.runtimeservices.IsisModuleCoreRuntimeServices;
@@ -27,6 +29,9 @@ import org.springframework.context.annotation.PropertySources;
         IsisModuleTestingH2ConsoleUi.class,
 
         IsisModuleExtFlywayImpl.class,
+
+        PortalModule.class,
+        HealthCheckServiceImpl.class
 
         //ApplicationModule.class,
 

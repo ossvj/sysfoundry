@@ -23,34 +23,58 @@ under the License.
   xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd"
   name="${artifactId}">
   <requiredProperties>
-    <requiredProperty key="sf.version">
+    <requiredProperty key="sf-version">
       <defaultValue>1.0-SNAPSHOT</defaultValue>
       <validationRegex/>
     </requiredProperty>
-    <requiredProperty key="sf.security.realm">
+    <requiredProperty key="sf-security-realm">
       <defaultValue>Example</defaultValue>
       <validationRegex/>
     </requiredProperty>
-    <requiredProperty key="sf.authserver.url">
+    <requiredProperty key="sf-authserver-url">
       <defaultValue>http://localhost:8080/auth/</defaultValue>
       <validationRegex/>
     </requiredProperty>
-    <requiredProperty key="sf.resource.name">
+    <requiredProperty key="sf-resource-name">
       <defaultValue>simpleapp</defaultValue>
       <validationRegex/>
     </requiredProperty>
-    <requiredProperty key="sf.website.url">
+    <requiredProperty key="sf-website-url">
       <defaultValue>http://sysfoundry.org</defaultValue>
       <validationRegex/>
     </requiredProperty>
   </requiredProperties>
 
   <fileSets>
+    <fileSet filtered="false" packaged="false">
+      <directory/>
+      <includes>
+        <include>*.properties</include>
+      </includes>
+    </fileSet>
     <fileSet filtered="true" packaged="true">
       <directory>src/main/java</directory>
     </fileSet>
+    <fileSet filtered="true" packaged="false">
+      <directory>src/main/resources</directory>
+      <excludes>
+        <exclude>log4j2-spring.xml</exclude>
+        <exclude>**/*.png</exclude>
+      </excludes>
+
+    </fileSet>
+    <fileSet filtered="false" packaged="false">
+      <directory>src/main/resources</directory>
+      <includes>
+        <include>log4j2-spring.xml</include>
+        <include>**/*.png</include>
+      </includes>
+    </fileSet>
     <fileSet filtered="true" packaged="true">
       <directory>src/test/java</directory>
+    </fileSet>
+    <fileSet filtered="true" packaged="false">
+      <directory>src/test/resources</directory>
     </fileSet>
   </fileSets>
 </archetype-descriptor>

@@ -101,6 +101,7 @@ spring:
   thymeleaf:
     enabled: true
 
+
 app:
   simple-module:
     types:

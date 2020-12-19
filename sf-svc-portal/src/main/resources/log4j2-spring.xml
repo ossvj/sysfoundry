@@ -52,6 +52,8 @@
 
         <logger name="org.keycloak.adapters.servlet.KeycloakOIDCFilter" level="trace"/>
 
+        <logger name="com.github.ossvj.sf.security.keycloak.isis.AuthenticatorKeycloak" level="debug"/>
+
         <Root level="info">
             <AppenderRef ref="Console" />
         </Root>

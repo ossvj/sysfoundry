@@ -47,20 +47,22 @@ public class KeycloakProxySignInPage extends WebPage {
                 log.info("Authenticated Successfully.... user id : "+idToken.getPreferredUsername());
 
                 AccessToken accessToken = securityContext.getToken();
-                AccessToken.Access accessInfo = accessToken.getResourceAccess(keycloakDeployment.getResourceName());
+
+                //AccessToken.Access accessInfo = accessToken.getResourceAccess(keycloakDeployment.getResourceName());
                 //SimpleSession simpleSession = new SimpleSession(idToken.getPreferredUsername(),computeRoles(accessInfo));
 
-                if(accessInfo != null){
+                /*if(accessInfo != null){
                     Set<String> roles = accessInfo.getRoles();
                     log.info("Roles for app -> "+keycloakDeployment.getResourceName());
                     roles.forEach(role->{
                         log.info(role);
                     });
-                }
+                }*/
 
                 AuthenticatedWebSession unAuthenticatedSession = AuthenticatedWebSession.get();
 
-                unAuthenticatedSession.setAttribute("keycloak-accessinfo",accessInfo);
+                unAuthenticatedSession.setAttribute("keycloak-access-token",accessToken);
+                //unAuthenticatedSession.setAttribute("keycloak-accessinfo",accessInfo);
                 //unAuthenticatedSession.setAttribute("keycloak-issuer",idToken.getIssuer());
 
                 boolean result = AuthenticatedWebSession.get().signIn(userName, "already-authenticated");
