@@ -7,8 +7,10 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.ServletException;
 
 import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.keycloak.adapters.KeycloakDeployment;
 import org.keycloak.adapters.servlet.KeycloakOIDCFilter;
+import org.keycloak.representations.adapters.config.AdapterConfig;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
@@ -28,7 +30,7 @@ import lombok.Getter;
 @Order(OrderPrecedence.FIRST + 100)
 //@Order(OrderPrecedence.FIRST)
 @Qualifier("Custom")
-@Log4j2
+@Slf4j
 public final class WebModuleKeycloak extends WebModuleAbstract {
 
     private static final String KEYCLOAK_FILTER_NAME = "KeycloakFilter";
@@ -40,8 +42,15 @@ public final class WebModuleKeycloak extends WebModuleAbstract {
     public WebModuleKeycloak(ServiceInjector serviceInjector,
                              //note ensure that the KeycloakDeployment is injected to ensure that the
                              //static globalkeycloakdeployment object is initialized
-                             KeycloakDeployment keycloakDeployment) {
+                             KeycloakDeployment keycloakDeployment//,
+                             //to ensure that the AdapterConfig is injected in the global static constant
+                             //AdapterConfig keycloakAdapterConfig
+                             ) {
         super(serviceInjector);
+
+        /*log.info("$$$$$$$$Adapter Config {}",keycloakAdapterConfig);
+        log.info("Security Realm {}",keycloakAdapterConfig.getRealm());
+        log.info("auth-server-url {}",keycloakAdapterConfig.getAuthServerUrl());*/
     }
 
 
@@ -49,7 +58,7 @@ public final class WebModuleKeycloak extends WebModuleAbstract {
     public Can<ServletContextListener> init(ServletContext ctx) throws ServletException {
 
         log.info("USUAL ORDER ADDED ONE MORE NEEE INSIDE Keycloak web module init...");
-        registerFilter(ctx, KEYCLOAK_FILTER_NAME, KeycloakOIDCFilter.class)
+        registerFilter(ctx, KEYCLOAK_FILTER_NAME, KeycloakOIDCFilterWrapper.class)
                 .ifPresent(filterReg -> {
                     filterReg.addMappingForUrlPatterns(
                             null,

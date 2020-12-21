@@ -28,17 +28,28 @@ import java.io.InputStream;
         //The below module registers the necessary servlet filters
         WebModuleKeycloak.class,
 
+        //This is for loading keycloak client config from the application configuration file
+        Config.class
+
 
 })
 public class IsisModuleSecurityKeycloak {
 
     public static KeycloakDeployment globalKeycloakDeployment;
+    //public static AdapterConfig globalKeycloakAdapterConfig;
 
     @Bean
-    public KeycloakDeployment keycloakConfig(){
-        InputStream inputStream = IsisKeycloakConfigResolver.class.getResourceAsStream("/config/keycloak.json");
-        KeycloakDeployment keycloakDeployment = KeycloakDeploymentBuilder.build(inputStream);
+    public KeycloakDeployment keycloakConfig(AdapterConfig adapterConfig){
+        //InputStream inputStream = IsisKeycloakConfigResolver.class.getResourceAsStream("/config/keycloak.json");
+        //KeycloakDeployment keycloakDeployment = KeycloakDeploymentBuilder.build(inputStream);
+        KeycloakDeployment keycloakDeployment = KeycloakDeploymentBuilder.build(adapterConfig);
         globalKeycloakDeployment = keycloakDeployment;
         return keycloakDeployment;
     }
+
+    //@Bean
+    /*public AdapterConfig keycloakAdapterConfig(AdapterConfig adapterConfig){
+        globalKeycloakAdapterConfig = adapterConfig;
+        return adapterConfig;
+    }*/
 }

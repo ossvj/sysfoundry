@@ -88,6 +88,7 @@
             <mb3:named/>
             <mb3:section>
                 <mb3:serviceAction objectType="isisApplib.ConfigurationMenu" id="configuration"/>
+                <mb3:serviceAction objectType="sf.accountMenu" id="myAccount"/>
             </mb3:section>
             <mb3:section>
                 <mb3:serviceAction objectType="isisSecurityApi.LogoutMenu" id="logout">

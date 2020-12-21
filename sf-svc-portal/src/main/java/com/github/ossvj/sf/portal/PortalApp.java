@@ -2,7 +2,7 @@ package com.github.ossvj.sf.portal;
 
 import org.apache.isis.core.config.presets.IsisPresets;
 import org.springframework.boot.SpringApplication;
-//import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Import;
 @Import({
         PortalAppManifest.class
 })
-//@EnableAutoConfiguration
+@EnableAutoConfiguration
 @EnableDiscoveryClient
 public class PortalApp extends SpringBootServletInitializer {
 

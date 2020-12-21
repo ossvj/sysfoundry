@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class HealthCheckServiceImpl implements HealthCheckService {
     @Override
     public Health check() {
-        log.info("PORTAL HEALTH CHECK INVOKED...");
+        log.debug("PORTAL HEALTH CHECK INVOKED...");
         return Health.ok();
     }
 }

@@ -6,4 +6,5 @@ spring:
   cloud:
     consul:
       config:
+        format: YAML
         enabled: true

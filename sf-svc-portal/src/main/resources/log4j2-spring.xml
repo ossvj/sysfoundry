@@ -50,7 +50,7 @@
         <logger name="org.apache.isis.core.runtimeservices.queryresultscache.QueryResultsCacheDefault" level="debug"/>
         <logger name="org.apache.isis.core.runtime.persistence.transaction.ChangedObjectsService" level="debug"/>
 
-        <logger name="org.keycloak.adapters.servlet.KeycloakOIDCFilter" level="trace"/>
+        <logger name="org.keycloak.adapters.servlet.KeycloakOIDCFilter" level="debug"/>
 
         <logger name="com.github.ossvj.sf.security.keycloak.isis.AuthenticatorKeycloak" level="debug"/>
 
